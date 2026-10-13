@@ -1,5 +1,5 @@
-
 version: '3.8'
+
 networks:
   frontend_net:
     driver: bridge
@@ -65,3 +65,57 @@ services:
       - web_app
     networks:
       - frontend_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: pm_cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - backend_net
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pm_prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - backend_net
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: pm_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=StrongGrafanaPass2026!
+    networks:
+      - frontend_net
+      - backend_net
+
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: pm_loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - backend_net
+
+  promtail:
+    image: grafana/promtail:2.9.0
+    container_name: pm_promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail/promtail-config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - backend_net
