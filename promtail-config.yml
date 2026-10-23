@@ -1,3 +1,4 @@
+cat << 'EOF' > promtail/promtail-config.yml
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
@@ -17,3 +18,4 @@ scrape_configs:
       - source_labels: ['__meta_docker_container_name']
         regex: '/(.*)'
         target_label: 'container_name'
+EOF
