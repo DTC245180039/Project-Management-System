@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Lý Dự Án</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; }
+        header { background-color: #1e293b; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 1.5rem; }
+        .badge { background-color: #10b981; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 8px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        .btn { display: inline-block; background-color: #2563eb; color: white; padding: 0.6rem 1.2rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+        .btn:hover { background-color: #1d4ed8; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f8fafc; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }
+        .status-done { color: #10b981; font-weight: bold; }
+        .status-progress { color: #f59e0b; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📋 Hệ Thống Quản Lý Dự Án</h1>
+        <span class="badge">Trạng thái: Active</span>
+    </header>
+    <div class="container">
+        <div class="card">
+            <h2>Tổng quan hệ thống</h2>
+            <p style="margin: 0.5rem 0 1rem; color: #64748b;">Hệ thống đang vận hành đầy đủ trên kiến trúc Docker Compose kết hợp giám sát Prometheus & Grafana.</p>
+            <a href="/api/tasks" class="btn">Xem danh sách Task (JSON API)</a>
+        </div>
+        <div class="card">
+            <h2>Danh sách công việc gần đây</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên công việc</th>
+                        <th>Trạng thái</th>
+                        <th>Người thực hiện</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Thiết kế hệ thống</td>
+                        <td><span class="status-done">Done</span></td>
+                        <td>Nguyễn Văn A</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Triển khai Docker Compose</td>
+                        <td><span class="status-progress">In Progress</span></td>
+                        <td>Trần Thị B</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
